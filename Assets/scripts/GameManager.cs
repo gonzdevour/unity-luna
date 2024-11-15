@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    private static GameManager instance;
+    public GameObject battleStage;
+
+    private static GameManager instance;//單例模式
     public static GameManager Instance
     {
         get
@@ -24,14 +26,18 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null && instance != this)
+        if (instance != null && instance != this) //有多就刪除
         {
             Destroy(gameObject);
         }
         else
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject); //跨scene存在
         }
+    }
+    public void BattleMode(bool mode=true)
+    {
+        battleStage.SetActive(mode);
     }
 }
